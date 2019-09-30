@@ -26,16 +26,20 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
     private Note se;
     private Note sf;
     private Note sg;
-    private Note sa;
-    private Note sb;
+    private Note saa;
+    private Note sbb;
     private Note scc;
     private Note sdd;
     private Note see;
     private Note sff;
     private Note sgg;
-    private Note saa;
-    private Note sbb;
-    private Note[] notes;
+    private Note saaa;
+
+
+    private Note[] notes1;
+    private Note[] notes2;
+    private Note[] notes3;
+    private Note[] notes4;
 
     boolean loaded = false;
 
@@ -73,7 +77,10 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        notes = new Note[]{sc, sd, se, sf, sg, sa, sb, scc, sdd, see, sff, sgg, saa, sbb};
+        notes1 = new Note[]{sg, scc, sg, scc, sdd, see};
+        notes2 = new Note[]{sdd, sff, sgg, scc};
+        notes3 = new Note[]{see, sdd, scc, sbb};
+        notes4 = new Note[]{sff, sgg, saaa, sgg, sff, see, sff, sgg, scc, sdd, see, sff, see, sdd};
 
 
 
@@ -102,8 +109,6 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
         se = new Note(sound.load(this, R.raw.scalee, 1), 300);
         sf = new Note(sound.load(this, R.raw.scalef, 1), 300);
         sg = new Note(sound.load(this, R.raw.scaleg, 1), 300);
-        sa = new Note(sound.load(this, R.raw.scalea, 1), 300);
-        sb = new Note(sound.load(this, R.raw.scaleb, 1), 300);
         scc = new Note(sound.load(this, R.raw.scalehighc, 1), 300);
         sdd = new Note(sound.load(this, R.raw.scalehighd, 1), 300);
         see = new Note(sound.load(this, R.raw.scalehighe, 1), 300);
@@ -111,6 +116,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
         sgg = new Note(sound.load(this, R.raw.scalehighg, 1), 300);
         saa = new Note(sound.load(this, R.raw.scalehigha, 1), 300);
         sbb = new Note(sound.load(this, R.raw.scalehighb, 1), 300);
+        saaa = new Note(sound.load(this, R.raw.scalehighhigha, 1), 300);
 
     }
 
@@ -238,6 +244,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                 float maxVolume = (float) audioManager
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
+                sound.play(scc.getID(), volume, volume, 1, 0, 1f);
 
                 break;
 
@@ -251,14 +258,98 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
 
-                for(int i = 0; i < notes.length - 3; i++)
+                // First
+
+                for(int i = 0; i < notes1.length; i++)
                 {
-                    sound.play(notes[i].getID(), volume, volume, 1, 0, 1f);
-                    delay(notes[i].getDelay());
-                    delay(40);
+                    sound.play(notes1[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
 
 
                 }
+                delay(400);
+                for(int i = 0; i < notes2.length; i++)
+                {
+                    sound.play(notes2[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                for(int i = 0; i < notes3.length; i++)
+                {
+                    sound.play(notes3[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(200);
+
+
+                }
+                sound.play(scc.getID(), volume, volume, 1, 0, 1f);
+                delay(1200);
+
+
+
+
+                // Second
+
+                for(int i = 0; i < notes1.length; i++)
+                {
+                    sound.play(notes1[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                delay(400);
+                for(int i = 0; i < notes2.length; i++)
+                {
+                    sound.play(notes2[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                for(int i = 0; i < notes3.length; i++)
+                {
+                    sound.play(notes3[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(200);
+
+
+                }
+                sound.play(scc.getID(), volume, volume, 1, 0, 1f);
+                delay(1200);
+
+                // Third
+
+                for(int i = 0; i < notes4.length; i++)
+                {
+                    sound.play(notes4[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                delay(1200);
+
+                // Fourth
+                for(int i = 0; i < notes1.length; i++)
+                {
+                    sound.play(notes1[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                delay(400);
+                for(int i = 0; i < notes2.length; i++)
+                {
+                    sound.play(notes2[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(400);
+
+
+                }
+                for(int i = 0; i < notes3.length; i++)
+                {
+                    sound.play(notes3[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(200);
+
+
+                }
+                sound.play(scc.getID(), volume, volume, 1, 0, 1f);
 
                 break;
 
