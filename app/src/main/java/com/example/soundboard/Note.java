@@ -8,7 +8,7 @@ public class Note
     public Note(int id, int delay)
     {
         soundID = id;
-        delay = delay;
+        this.delay = delay;
 
     }
 

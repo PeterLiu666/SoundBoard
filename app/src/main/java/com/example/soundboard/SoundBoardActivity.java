@@ -19,6 +19,9 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
     private Button ba;
     private Button bb;
     private Button bcc;
+    private Button bscale;
+    private Button bclear;
+    private Button buserSong;
     private Button song1;
     private SoundPool sound;
     private Note sc;
@@ -34,12 +37,13 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
     private Note sff;
     private Note sgg;
     private Note saaa;
-
+    private Song playerMadeSong;
 
     private Note[] notes1;
     private Note[] notes2;
     private Note[] notes3;
     private Note[] notes4;
+    private Note[] scalenote;
 
     boolean loaded = false;
 
@@ -62,7 +66,11 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
         bb = findViewById(R.id.button_G_main);
         bcc = findViewById(R.id.button_H_main);
         song1 = findViewById(R.id.button_song1_main);
+        bscale = findViewById(R.id.button_scale_main);
+        bclear = findViewById(R.id.button_clear_main);
+        buserSong = findViewById(R.id.button_playerMadeSong_main);
         sound = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        playerMadeSong = new Song();
 
         sound.setOnLoadCompleteListener(new OnLoadCompleteListener() {
             @Override
@@ -81,6 +89,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
         notes2 = new Note[]{sdd, sff, sgg, scc};
         notes3 = new Note[]{see, sdd, scc, sbb};
         notes4 = new Note[]{sff, sgg, saaa, sgg, sff, see, sff, sgg, scc, sdd, see, sff, see, sdd};
+        scalenote = new Note[] {sc,sd, se, sf, sg, saa, sbb, scc};
 
 
 
@@ -133,6 +142,9 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
         bb.setOnClickListener(this);
         bcc.setOnClickListener(this);
         song1.setOnClickListener(this);
+        bscale.setOnClickListener(this);
+        bclear.setOnClickListener(this);
+        buserSong.setOnClickListener(this);
 
     }
 
@@ -151,6 +163,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(sc.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(sc);
                 break;
 
             }
@@ -164,6 +177,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(sd.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(sd);
                 break;
 
 
@@ -178,6 +192,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(se.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(se);
                 break;
 
 
@@ -191,6 +206,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(sf.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(sf);
                 break;
 
 
@@ -204,6 +220,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(sg.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(sg);
                 break;
 
 
@@ -219,6 +236,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(saa.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(saa);
                 break;
 
 
@@ -232,6 +250,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(sbb.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(sbb);
                 break;
 
 
@@ -245,10 +264,57 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
                         .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 float volume = actualVolume / maxVolume;
                 sound.play(scc.getID(), volume, volume, 1, 0, 1f);
+                playerMadeSong.addNote(scc);
 
                 break;
 
             }
+            case R.id.button_clear_main:
+            {
+                playerMadeSong.clear();
+                break;
+
+            }
+            case R.id.button_playerMadeSong_main:
+            {
+
+
+                AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                float actualVolume = (float) audioManager
+                        .getStreamVolume(AudioManager.STREAM_MUSIC);
+                float maxVolume = (float) audioManager
+                        .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                float volume = actualVolume / maxVolume;
+                for(int i = 0; i < playerMadeSong.getLength(); i++)
+                {
+                    sound.play(playerMadeSong.getNote(i).getID(), volume, volume, 1, 0, 1f);
+                    delay(playerMadeSong.getNote(i).getDelay());
+
+
+                }
+                break;
+
+            }
+
+            case R.id.button_scale_main:
+            {
+                AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                float actualVolume = (float) audioManager
+                        .getStreamVolume(AudioManager.STREAM_MUSIC);
+                float maxVolume = (float) audioManager
+                        .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                float volume = actualVolume / maxVolume;
+                for(int i = 0; i < scalenote.length; i++)
+                {
+                    sound.play(scalenote[i].getID(), volume, volume, 1, 0, 1f);
+                    delay(scalenote[i].getDelay());
+
+
+                }
+                break;
+
+            }
+
             case R.id.button_song1_main:
             {
                 AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -324,7 +390,7 @@ public class SoundBoardActivity extends AppCompatActivity implements View.OnClic
 
 
                 }
-                delay(1200);
+                delay(1000);
 
                 // Fourth
                 for(int i = 0; i < notes1.length; i++)
